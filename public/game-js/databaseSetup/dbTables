@@ -1,0 +1,40 @@
+const mysql = require("mysql");
+const config = require("../config");
+// let con = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "",
+//     database:"game_js",
+// });
+let con = mysql.createConnection(config.db);
+
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("connected")
+
+    let sql =
+    "CREATE Table IF NOT EXISTS level (id INT AUTO_INCREMENT PRIMARY KEY, speed INT)";
+      con.query(sql, function (err, result){
+        if (err) throw err;
+        console.log("Table created");
+      }); 
+      
+
+    sql =
+    "CREATE TABLE IF NOT EXISTS scores (id INT AUTO_INCREMENT PRIMARY KEY,player VARCHAR(255),score INT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP )";
+      con.query(sql, function (err, result){
+          if (err) throw err;
+          console.log("Table created");
+        });
+
+     sql =
+    "CREATE TABLE IF NOT EXISTS players ( id INT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(255),score INT )";
+    con.query(sql, function (err, result){
+        if (err) throw err;
+        console.log("Table created");
+      });
+
+
+    });
+
+    
